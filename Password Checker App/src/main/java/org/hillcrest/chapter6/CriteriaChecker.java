@@ -1,4 +1,5 @@
 package main.java.org.hillcrest.chapter6;
+
 public class CriteriaChecker {
 
     private static boolean meetLength;
@@ -9,69 +10,54 @@ public class CriteriaChecker {
 
     public static int evaluateCriteria(String password) {
         int criteriaCounter = 0;
+
         meetLength = false;
         hasUpperCase = false;
         hasLowerCase = false;
         hasDigit = false;
-        String validSpecialChar = "!@#$%^&*()-+=";
-        boolean hasSpecialChar = false;
+        hasSpecialChar = false;
 
-        if (password.length() >= 8){
+        String validSpecialChar = "!@#$%^&*()-+=";
+
+        if (password.length() >= 8) {
             meetLength = true;
-            criteriaCounter += 1;
+            criteriaCounter++;
         }
-        for (int i = 1; i <= password.length(); i++) {
+
+        for (int i = 0; i < password.length(); i++) {
             char ch = password.charAt(i);
+
             if (Character.isUpperCase(ch)) {
                 hasUpperCase = true;
             }
-        }
-        for (int i = 1; i <= password.length(); i++) {
-            char ch = password.charAt(i);
-            if (Character.isLowerCase(ch)) {
+            else if (Character.isLowerCase(ch)) {
                 hasLowerCase = true;
             }
-        }
-        if (hasUpperCase) {
-            criteriaCounter ++;
-        }
-        if (hasLowerCase) {
-            criteriaCounter ++;
-        }
-        for (int i = 1; i <= password.length(); i++) {
-            char ch = password.charAt(i);
-            if (Character.isDigit(ch)) {
+            else if (Character.isDigit(ch)) {
                 hasDigit = true;
             }
-        }
-        if (hasDigit) {
-            criteriaCounter ++;
-        }
-        for (int i = 1; i <= password.length(); i++) {
-            char ch = password.charAt(i);
-            for (int j = 1; j <= validSpecialChar.length(); j++) {
-                char ch2 = validSpecialChar.charAt(j);
-                if (ch == ch2) {
-                    hasSpecialChar = true;
-                    break;
-                }
+            else if (validSpecialChar.indexOf(ch) != -1) {
+                hasSpecialChar = true;
             }
         }
-        if (hasSpecialChar) {
-            criteriaCounter ++;
-        }
+
+        if (hasUpperCase) criteriaCounter++;
+        if (hasLowerCase) criteriaCounter++;
+        if (hasDigit) criteriaCounter++;
+        if (hasSpecialChar) criteriaCounter++;
 
         return criteriaCounter;
     }
+
     public static String determineStrength(int score) {
         return switch (score) {
             case 0, 1, 2 -> "Weak";
             case 3 -> "Moderate";
             case 4, 5 -> "Strong";
-            default -> "invalid score";
+            default -> "Invalid score";
         };
-
     }
+
     public static boolean isMeetLength() {
         return meetLength;
     }

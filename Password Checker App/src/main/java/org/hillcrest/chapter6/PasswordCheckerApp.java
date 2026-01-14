@@ -11,7 +11,8 @@ public class PasswordCheckerApp {
        String strength = CriteriaChecker.determineStrength(criteria);
        String feedback = FeedbackGenerator.generateFeedback(password);
 
-       System.out.println("Password Strength: " + strength);
+        System.out.println("Criteria met: " + criteria + "/5");
+        System.out.println("Password Strength: " + strength);
 
 
 
